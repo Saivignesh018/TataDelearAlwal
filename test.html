@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beverage Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #ff6600;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .enterprise-name {
+            font-size: 16px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .banner {
+            width: 100%;
+            height: auto;
+        }
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .section img {
+            width: 150px;
+            height: 150px;
+            margin-right: 20px;
+        }
+        .view-button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .product img {
+            width: 100px;
+            height: 100px;
+        }
+        footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 onclick="goHome()">Tata Beverage Dealer</h1>
+        <div class="nav-buttons">
+            <button onclick="showLogin()">Account</button>
+            <button>Cart</button>
+        </div>
+    </header>
+    
+    <section id="home">
+        <img src="banner1.jpg" alt="Beverage Store Banner" class="banner">
+        <p>We are home to well-recognised brands that are loved by a wide range of consumers. 
+            Our brands embody our purpose of #ForBetter through the value they deliver</p>
+        <h2>Our Products</h2>
+        <div class="section" onclick="showProducts('Tata Water')">
+            <img src="water.jpg" alt="Tata Water">
+            <div>
+                <h3>Tata Water</h3>
+                <p>Pure mineral water for hydration.</p>
+                <button class="view-button">View Products</button>
+            </div>
+        </div>
+        <div class="section" onclick="showProducts('Tata Gluco Plus')">
+            <img src="gluco+.jpg" alt="Tata Gluco+">
+            <div>
+                <h3>Tata Gluco+</h3>
+                <p>Energy-packed glucose drinks.</p>
+                <button class="view-button">View Products</button>
+            </div>
+        </div>
+        <div class="section" onclick="showProducts('Tata Gluco+ Jelly')">
+            <img src="gluco jelly .jpg" alt="Tata Gluco+ Jelly">
+            <div>
+                <h3>Tata Gluco+ Jelly</h3>
+                <p>Energy-packed glucose drinks.</p>
+                <button class="view-button">View Products</button>
+            </div>
+        </div>
+        <div class="section" onclick="showProducts('Tata Fruski')">
+            <img src="fruskibanner.jpg" alt="Tata Fruski">
+            <div>
+                <h3>Tata Fruski Drinks</h3>
+                <p>Energy-packed glucose drinks.</p>
+                <button class="view-button">View Products</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="products" style="display: none;">
+        <h3 id="product-title"></h3>
+        <div class="product-grid" id="product-list"></div>
+    </section>
+    
+    <section id="login" style="display: none;">
+        <h2>Login / Sign Up</h2>
+        <input type="email" placeholder="Email" required><br>
+        <input type="password" placeholder="Password" required><br>
+        <button onclick="loginUser()">Sign In</button>
+        <button>Sign Up</button>
+    </section>
+    
+    <footer>
+        <div>Email : Contact@Tatadealer.com
+             Ph : 9705070713
+        </div>
+        <div>Panchsheel enclave,
+             Near Shakti Ganesh Kaman,
+             Alwal Hills,
+             HYderabad 500010
+        </div>
+    </footer>
+    
+    <script>
+        const products = {
+            'Tata Water': [
+                { name: 'Tata Copper Water', image: '1L.jpg', price: '$2' },
+                { name: 'Tata Himalayan Water', image: 'Himalayan.jpg', price: '$3' },
+                { name: 'Tata Sparkling Water', image: 'Himasoark.jpg', price: '$1.5' }
+            ],
+            'Tata Gluco Plus': [
+                { name: 'Gluco+ Orange', image: 'gluco plus orange.jpg', price: '$2' },
+                { name: 'Gluco+ lychee', image: 'gluco+ lychee.jpg', price: '$2.5' },
+                { name: 'Gluco+ lemon', image: 'images/gluco_mango.jpg', price: '$2.8' },
+                { name: 'Gluco+ Grape', image: 'gluco + grape.jpg', price: '$3' }
+            ],
+            'Tata Gluco+ Jelly': [
+                { name: 'Gluco+ Jelly Orange', image: 'Jelly orange.jpg', price: '$2' },
+                { name: 'Gluco+ Jelly Strawberry', image: 'jelly staw.jpg', price: '$2.5' },
+                { name: 'Gluco+ Jelly Mango', image: 'Jelly mango.jpg', price: '$2.8' }
+            ],
+            'Tata Fruski': [
+                { name: 'Fruski Orange', image: 'fruski orange.jpg', price: '$2' },
+                { name: 'Fruski Lemon Masala', image: 'fruski lemon-masala.jpg', price: '$2.5' },
+                { name: 'Fruski Mango', image: 'FruskiMango.jpg', price: '$2.8' },
+                { name: 'Fruski Kala Khatta', image: 'fruski kala khatta.jpg', price: '$3' },
+                { name: 'Fruski Jeera Masala', image: 'fruski jeera masala.jpg', price: '$2.6' }
+            ]
+        };
+        
+        function showProducts(category) {
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('products').style.display = 'block';
+            document.getElementById('product-title').innerText = category.replace('-', ' ');
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '';
+            
+            products[category].forEach(product => {
+                productList.innerHTML += `
+                    <div class="product">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h4>${product.name}</h4>
+                        <p>Price: ${product.price}</p>
+                        <input type="number" min="1" value="1">
+                        <button onclick="addToCart('${product.name}', '${product.price}')">Add to Cart</button>
+                    </div>`;
+            });
+        }
+        
+        function showLogin() {
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('products').style.display = 'none';
+            document.getElementById('login').style.display = 'block';
+        }
+        
+        function goHome() {
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('products').style.display = 'none';
+            document.getElementById('login').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
